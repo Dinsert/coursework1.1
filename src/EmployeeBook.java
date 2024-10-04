@@ -89,7 +89,7 @@ public class EmployeeBook {
 
     public BigDecimal calculateAverageSalaryAllEmployees() {
         int count = getNumberOfEmployees();
-        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count),0,RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
+        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
     }
 
     public String getAllFullNameEmployees() {
@@ -110,7 +110,8 @@ public class EmployeeBook {
     public Employee findEmployeeWithMinSalaryByDepartment(int department) {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && (result == null && department == employee.getDepartment() || department == employee.getDepartment() && employee.getSalary().compareTo(result.getSalary()) < 0)) {
+            if (nonNull(employee) && department == employee.getDepartment()
+                    && (result == null || employee.getSalary().compareTo(result.getSalary()) < 0)) {
                 result = employee;
             }
         }
@@ -120,7 +121,8 @@ public class EmployeeBook {
     public Employee findEmployeeWithMaxSalaryByDepartment(int department) {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && (result == null && department == employee.getDepartment() || department == employee.getDepartment() && employee.getSalary().compareTo(result.getSalary()) > 0)) {
+            if (nonNull(employee) && department == employee.getDepartment()
+                    && (result == null || employee.getSalary().compareTo(result.getSalary()) > 0)) {
                 result = employee;
             }
         }
@@ -146,7 +148,7 @@ public class EmployeeBook {
                 count++;
             }
         }
-        return count != 0 ? all.divide(BigDecimal.valueOf(count),0,RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
+        return count != 0 ? all.divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
     }
 
     public BigDecimal getTotalIndexedSalaryByDepartment(int department) {
