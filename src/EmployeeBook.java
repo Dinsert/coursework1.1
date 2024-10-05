@@ -1,13 +1,15 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static java.math.BigDecimal.*;
 import static java.util.Objects.nonNull;
 
 public class EmployeeBook {
-    private final Employee[] employees = new Employee[10];
-    private final static double PERCENT_VALUE = 1.0;
-    private final static double PERCENT_INCREASE = 1 + PERCENT_VALUE / 100;
 
+    private final Employee[] employees = new Employee[10];
+    private final static BigDecimal PERCENT_VALUE = valueOf(1.0);
+    private final static BigDecimal ONE_HUNDRED = valueOf(100);
+    private final static BigDecimal PERCENT_INCREASE = ONE.add(PERCENT_VALUE.divide(ONE_HUNDRED,0,RoundingMode.DOWN));
 
     private int getNumberOfEmployees() {
         int count = 0;
@@ -57,7 +59,7 @@ public class EmployeeBook {
     }
 
     public BigDecimal getTotalEmployeeSalaries() {
-        BigDecimal sum = new BigDecimal("0");
+        BigDecimal sum = ZERO;
         for (Employee employee : employees) {
             if (nonNull(employee)) {
                 sum = sum.add(employee.getSalary());
@@ -89,7 +91,7 @@ public class EmployeeBook {
 
     public BigDecimal calculateAverageSalaryAllEmployees() {
         int count = getNumberOfEmployees();
-        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
+        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : ZERO;
     }
 
     public String getAllFullNameEmployees() {
@@ -104,7 +106,7 @@ public class EmployeeBook {
     }
 
     public BigDecimal calculateIndexedSalaryAllEmployees() {
-        return getTotalEmployeeSalaries().multiply(BigDecimal.valueOf(PERCENT_INCREASE));
+        return getTotalEmployeeSalaries().multiply(PERCENT_INCREASE);
     }
 
     public Employee findEmployeeWithMinSalaryByDepartment(int department) {
@@ -130,7 +132,7 @@ public class EmployeeBook {
     }
 
     public BigDecimal getTotalEmployeeSalariesByDepartment(int department) {
-        BigDecimal sum = new BigDecimal("0");
+        BigDecimal sum = ZERO;
         for (Employee employee : employees) {
             if (nonNull(employee) && department == employee.getDepartment()) {
                 sum = sum.add(employee.getSalary());
@@ -140,7 +142,7 @@ public class EmployeeBook {
     }
 
     public BigDecimal calculateAverageSalaryByDepartment(int department) {
-        BigDecimal all = new BigDecimal("0");
+        BigDecimal all = ZERO;
         int count = 0;
         for (Employee employee : employees) {
             if (nonNull(employee) && department == employee.getDepartment()) {
@@ -148,11 +150,11 @@ public class EmployeeBook {
                 count++;
             }
         }
-        return count != 0 ? all.divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : BigDecimal.valueOf(0.0);
+        return count != 0 ? all.divide(valueOf(count), 0, RoundingMode.DOWN) : ZERO ;
     }
 
     public BigDecimal getTotalIndexedSalaryByDepartment(int department) {
-        return getTotalEmployeeSalariesByDepartment(department).multiply(BigDecimal.valueOf(PERCENT_INCREASE));
+        return getTotalEmployeeSalariesByDepartment(department).multiply(PERCENT_INCREASE);
     }
 
     public void printAllEmployeesByDepartment(int department) {
