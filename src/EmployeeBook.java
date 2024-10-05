@@ -2,6 +2,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static java.math.BigDecimal.*;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class EmployeeBook {
@@ -9,7 +10,7 @@ public class EmployeeBook {
     private final Employee[] employees = new Employee[10];
     private final static BigDecimal PERCENT_VALUE = valueOf(1.0);
     private final static BigDecimal ONE_HUNDRED = valueOf(100);
-    private final static BigDecimal PERCENT_INCREASE = ONE.add(PERCENT_VALUE.divide(ONE_HUNDRED, 0, RoundingMode.DOWN));
+    private final static BigDecimal PERCENT_INCREASE = ONE.add(PERCENT_VALUE.divide(ONE_HUNDRED, 2, RoundingMode.HALF_UP));
 
     private int getNumberOfEmployees() {
         int count = 0;
@@ -23,7 +24,7 @@ public class EmployeeBook {
 
     public boolean createNewEmployee(String fullName, int department, BigDecimal salary) {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
+            if (isNull(employees[i])) {
                 employees[i] = new Employee(fullName, department, salary);
                 return true;
             }
@@ -71,7 +72,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMinSalary() {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && (result == null || employee.getSalary().compareTo(result.getSalary()) < 0)) {
+            if (nonNull(employee) && (result == null || employee.hasLowestSalary(result))) {
                 result = employee;
             }
         }
@@ -81,7 +82,7 @@ public class EmployeeBook {
     public Employee findEmployeeWithMaxSalary() {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && (result == null || employee.getSalary().compareTo(result.getSalary()) > 0)) {
+            if (nonNull(employee) && (result == null || employee.hasHighestSalary(result))) {
                 result = employee;
             }
         }
@@ -90,7 +91,7 @@ public class EmployeeBook {
 
     public BigDecimal calculateAverageSalaryAllEmployees() {
         int count = getNumberOfEmployees();
-        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : ZERO;
+        return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 2, RoundingMode.HALF_UP) : ZERO;
     }
 
     public String getAllFullNameEmployees() {
@@ -111,8 +112,8 @@ public class EmployeeBook {
     public Employee findEmployeeWithMinSalaryByDepartment(int department) {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && department == employee.getDepartment()
-                    && (result == null || employee.getSalary().compareTo(result.getSalary()) < 0)) {
+            if (nonNull(employee) && employee.hasDepartment(department)
+                    && (result == null || employee.hasLowestSalary(result))) {
                 result = employee;
             }
         }
@@ -122,8 +123,8 @@ public class EmployeeBook {
     public Employee findEmployeeWithMaxSalaryByDepartment(int department) {
         Employee result = null;
         for (Employee employee : employees) {
-            if (nonNull(employee) && department == employee.getDepartment()
-                    && (result == null || employee.getSalary().compareTo(result.getSalary()) > 0)) {
+            if (nonNull(employee) && employee.hasDepartment(department)
+                    && (result == null || employee.hasHighestSalary(result))) {
                 result = employee;
             }
         }
@@ -133,7 +134,7 @@ public class EmployeeBook {
     public BigDecimal getTotalEmployeeSalariesByDepartment(int department) {
         BigDecimal sum = ZERO;
         for (Employee employee : employees) {
-            if (nonNull(employee) && department == employee.getDepartment()) {
+            if (nonNull(employee) && employee.hasDepartment(department)) {
                 sum = sum.add(employee.getSalary());
             }
         }
@@ -144,12 +145,12 @@ public class EmployeeBook {
         BigDecimal all = ZERO;
         int count = 0;
         for (Employee employee : employees) {
-            if (nonNull(employee) && department == employee.getDepartment()) {
+            if (nonNull(employee) && employee.hasDepartment(department)) {
                 all = all.add(employee.getSalary());
                 count++;
             }
         }
-        return count != 0 ? all.divide(valueOf(count), 0, RoundingMode.DOWN) : ZERO;
+        return count != 0 ? all.divide(valueOf(count), 2, RoundingMode.HALF_UP) : ZERO;
     }
 
     public BigDecimal getTotalIndexedSalaryByDepartment(int department) {
@@ -158,7 +159,7 @@ public class EmployeeBook {
 
     public void printAllEmployeesByDepartment(int department) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && department == employee.getDepartment()) {
+            if (nonNull(employee) && employee.hasDepartment(department)) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
@@ -173,7 +174,7 @@ public class EmployeeBook {
     }
 
     public void printEmployeesWithSalaryLessThan(int value) {
-        printEmployeesWithSalaryLessThan(valueOf(value));
+        printEmployeesWithSalaryLessThan(BigDecimal.valueOf(value));
     }
 
     public void printEmployeesWithSalaryMoreThan(BigDecimal value) {
@@ -185,7 +186,7 @@ public class EmployeeBook {
     }
 
     public void printEmployeesWithSalaryMoreThan(int value) {
-        printEmployeesWithSalaryMoreThan(valueOf(value));
+        printEmployeesWithSalaryMoreThan(BigDecimal.valueOf(value));
     }
 }
 

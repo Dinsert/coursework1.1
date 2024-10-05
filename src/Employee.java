@@ -74,4 +74,16 @@ public class Employee {
                 ", id=" + id +
                 '}';
     }
+
+    public boolean hasDepartment(int department) {
+        return this.department == department;
+    }
+
+    public boolean hasLowestSalary(Employee result) {
+        return this.salary.compareTo(result.salary) < 0;
+    }
+
+    public boolean hasHighestSalary(Employee result) {
+        return this.salary.compareTo(result.salary) > 0;
+    }
 }
