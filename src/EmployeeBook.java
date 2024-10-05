@@ -88,7 +88,6 @@ public class EmployeeBook {
         return result;
     }
 
-
     public BigDecimal calculateAverageSalaryAllEmployees() {
         int count = getNumberOfEmployees();
         return count != 0 ? getTotalEmployeeSalaries().divide(BigDecimal.valueOf(count), 0, RoundingMode.DOWN) : ZERO;
@@ -165,19 +164,30 @@ public class EmployeeBook {
         }
     }
 
-    public void printEmployeesWithSalaryLessThan(int value) {
+    public void printEmployeesWithSalaryLessThan(BigDecimal value) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(valueOf(value)) < 0) {
+            if (nonNull(employee) && employee.getSalary().compareTo(value) < 0) {
+                System.out.println(employee.toStringWithoutDepartment());
+            }
+        }
+    }
+
+    public void printEmployeesWithSalaryLessThan(int value) {
+        printEmployeesWithSalaryLessThan(valueOf(value));
+    }
+
+    public void printEmployeesWithSalaryMoreThan(BigDecimal value) {
+        for (Employee employee : employees) {
+            if (nonNull(employee) && employee.getSalary().compareTo(value) > 0) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
     }
 
     public void printEmployeesWithSalaryMoreThan(int value) {
-        for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(valueOf(value)) > 0) {
-                System.out.println(employee.toStringWithoutDepartment());
-            }
-        }
+        printEmployeesWithSalaryMoreThan(valueOf(value));
     }
 }
+
+
+
