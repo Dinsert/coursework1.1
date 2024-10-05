@@ -34,7 +34,7 @@ public class Main {
         System.out.println(employeeBook.getTotalEmployeeSalariesByDepartment(2));
         System.out.println(employeeBook.calculateAverageSalaryByDepartment(5));
         System.out.println(employeeBook.getTotalIndexedSalaryByDepartment(3));
-        employeeBook.printEmployeesWithSalaryLessThan(valueOf(35000));
-        employeeBook.printEmployeesWithSalaryMoreThan(valueOf(35000));
+        employeeBook.printEmployeesWithSalaryLessThan(35000);
+        employeeBook.printEmployeesWithSalaryMoreThan(35000);
     }
 }

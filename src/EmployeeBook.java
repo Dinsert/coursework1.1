@@ -165,17 +165,17 @@ public class EmployeeBook {
         }
     }
 
-    public void printEmployeesWithSalaryLessThan(BigDecimal value) {
+    public void printEmployeesWithSalaryLessThan(int value) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(value) < 0) {
+            if (nonNull(employee) && employee.getSalary().compareTo(valueOf(value)) < 0) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
     }
 
-    public void printEmployeesWithSalaryMoreThan(BigDecimal value) {
+    public void printEmployeesWithSalaryMoreThan(int value) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(value) > 0) {
+            if (nonNull(employee) && employee.getSalary().compareTo(valueOf(value)) > 0) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
