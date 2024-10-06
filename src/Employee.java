@@ -16,6 +16,26 @@ public class Employee {
         this.id = ++counter;
     }
 
+    public boolean hasDepartment(int department) {
+        return this.department == department;
+    }
+
+    public boolean hasLowestSalary(Employee result) {
+        return hasLowestSalary(result.getSalary());
+    }
+
+    public boolean hasLowestSalary(BigDecimal value) {
+        return this.salary.compareTo(value) < 0;
+    }
+
+    public boolean hasHighestSalary(Employee result) {
+        return hasHighestSalary(result.getSalary());
+    }
+
+    public boolean hasHighestSalary(BigDecimal value) {
+        return this.salary.compareTo(value) > 0;
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -73,17 +93,5 @@ public class Employee {
                 ", salary=" + salary +
                 ", id=" + id +
                 '}';
-    }
-
-    public boolean hasDepartment(int department) {
-        return this.department == department;
-    }
-
-    public boolean hasLowestSalary(Employee result) {
-        return this.salary.compareTo(result.salary) < 0;
-    }
-
-    public boolean hasHighestSalary(Employee result) {
-        return this.salary.compareTo(result.salary) > 0;
     }
 }

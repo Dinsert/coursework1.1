@@ -167,7 +167,7 @@ public class EmployeeBook {
 
     public void printEmployeesWithSalaryLessThan(BigDecimal value) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(value) < 0) {
+            if (nonNull(employee) && employee.hasLowestSalary(value)) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
@@ -179,7 +179,7 @@ public class EmployeeBook {
 
     public void printEmployeesWithSalaryMoreThan(BigDecimal value) {
         for (Employee employee : employees) {
-            if (nonNull(employee) && employee.getSalary().compareTo(value) > 0) {
+            if (nonNull(employee) && employee.hasHighestSalary(value)) {
                 System.out.println(employee.toStringWithoutDepartment());
             }
         }
