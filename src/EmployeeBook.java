@@ -10,7 +10,7 @@ public class EmployeeBook {
     private final Employee[] employees = new Employee[10];
     private final static BigDecimal PERCENT_VALUE = valueOf(1.0);
     private final static BigDecimal ONE_HUNDRED = valueOf(100);
-    private final static BigDecimal PERCENT_INCREASE = ONE.add(BigDecimalUtils.divide(PERCENT_VALUE,ONE_HUNDRED));
+    private final static BigDecimal PERCENT_INCREASE = ONE.add(BigDecimalUtils.divide(PERCENT_VALUE, ONE_HUNDRED));
 
     private int getNumberOfEmployees() {
         int count = 0;
@@ -91,7 +91,7 @@ public class EmployeeBook {
 
     public BigDecimal calculateAverageSalaryAllEmployees() {
         int count = getNumberOfEmployees();
-        return count != 0 ? BigDecimalUtils.divide(getTotalEmployeeSalaries(), BigDecimal.valueOf(count)) : ZERO;
+        return count != 0 ? BigDecimalUtils.divide(getTotalEmployeeSalaries(), count) : ZERO;
     }
 
     public String getAllFullNameEmployees() {
@@ -150,7 +150,7 @@ public class EmployeeBook {
                 count++;
             }
         }
-        return count != 0 ? BigDecimalUtils.divide(all, BigDecimal.valueOf(count)) : ZERO;
+        return count != 0 ? BigDecimalUtils.divide(all, count) : ZERO;
     }
 
     public BigDecimal getTotalIndexedSalaryByDepartment(int department) {
