@@ -20,19 +20,19 @@ public class Employee {
         return this.department == department;
     }
 
-    public boolean hasLowestSalary(Employee result) {
-        return hasLowestSalary(result.getSalary());
+    public boolean hasLowestSalaryThan(Employee result) {
+        return hasLowestSalaryThan(result.getSalary());
     }
 
-    public boolean hasLowestSalary(BigDecimal value) {
+    public boolean hasLowestSalaryThan(BigDecimal value) {
         return this.salary.compareTo(value) < 0;
     }
 
-    public boolean hasHighestSalary(Employee result) {
-        return hasHighestSalary(result.getSalary());
+    public boolean hasHighestSalaryThan(Employee result) {
+        return hasHighestSalaryThan(result.getSalary());
     }
 
-    public boolean hasHighestSalary(BigDecimal value) {
+    public boolean hasHighestSalaryThan(BigDecimal value) {
         return this.salary.compareTo(value) > 0;
     }
 
